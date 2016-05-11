@@ -52,27 +52,23 @@ public class Campo extends Frame {
   }
 
   public boolean colision(){
-    boolean colision=false;
 	for (int i=0; i<this.numLadrillos;i++){
 		 if(ladrillos[i]!=null){Ladrillo l=ladrillos[i];		
 			 if ((b.getX()>=l.getX())&(b.getX()<=l.getX()+l.getAncho())&(b.getY()>=l.getY())&(b.getY()<=l.getY()+l.getAlto())){
-              colision=true;
+             
 			}
-            if (((b.getX()+b.getAncho())>=l.getX())&((b.getX()+b.getAncho())<=l.getX()+l.getAncho())&(b.getY()>=l.getY())&(b.getY()<=l.getY()+l.getAlto())){
-			  colision=true;
-            }	
-            if ((b.getX()>=l.getX())&(b.getX()<=l.getX()+l.getAncho())&(b.getY()+b.getAlto()>=l.getY())&(b.getY()+b.getAlto()<=l.getY()+l.getAlto())){
-			  colision=true;
-            }
-            if ((b.getX()+b.getAncho()>=l.getX())&(b.getX()+b.getAncho()<=l.getX()+l.getAncho())&(b.getY()+b.getAlto()>=l.getY())&(b.getY()+b.getAlto()<=l.getY()+l.getAlto())){
-              colision=true;
+if (((b.getX()+b.getAncho())>=l.getX())&((b.getX()+b.getAncho())<=l.getX()+l.getAncho())&(b.getY()>=l.getY())&(b.getY()<=l.getY()+l.getAlto())){
+				
+if ((b.getX()>=l.getX())&(b.getX()<=l.getX()+l.getAncho())&(b.getY()+b.getAlto()>=l.getY())&(b.getY()+b.getAlto()<=l.getY()+l.getAlto())){
+			
+if ((b.getX()+b.getAncho()>=l.getX())&(b.getX()+b.getAncho()<=l.getX()+l.getAncho())&(b.getY()+b.getAlto()>=l.getY())&(b.getY()+b.getAlto()<=l.getY()+l.getAlto())){
+				
+
+
 			}
-            if(colision){
-				this.remove(l);
-				ladrillos[i]=null;
-            }
-         }
-	     return colision;
+		}
+        }
+	return false;
 
   }
 
