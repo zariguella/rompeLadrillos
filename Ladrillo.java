@@ -18,8 +18,8 @@ public class Ladrillo extends	Button {
 	public void setAlto(int alto){
 		this.alto=alto;
 	}
-  public Ladrillo(int x,int y){
-    this.setBounds(x,y,this.ancho,this.alto);
-  }  
+	public Ladrillo(int x,int y){
+		this.setBounds(x,y,this.ancho,this.alto);
+	}  
   
 }

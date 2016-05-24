@@ -10,7 +10,7 @@ public class Campo extends Frame {
   private int yInicial=0;
   private int numLadrillos=10;
   private Ladrillo ladrillos[]=new Ladrillo[numLadrillos];
-  private int tiempo=100;
+  private int tiempo=10;
   private Pelota b=new Pelota(250,300);
   
   
@@ -38,8 +38,7 @@ public class Campo extends Frame {
   public void dibujarCampo(){	
 	 Paleta p=new Paleta(250,475);
 	 p.setBackground(Color.ORANGE);
-	 this.add(p);
-   	 
+	 this.add(p);   	 
    	 b.setBackground(Color.RED);
   	 this.add(b);
 	 
@@ -54,45 +53,61 @@ public class Campo extends Frame {
   public boolean colision(){
     boolean colision=false;
 	for (int i=0; i<this.numLadrillos;i++){
-		 if(ladrillos[i]!=null){Ladrillo l=ladrillos[i];		
-			 if ((b.getX()>=l.getX())&(b.getX()<=l.getX()+l.getAncho())&(b.getY()>=l.getY())&(b.getY()<=l.getY()+l.getAlto())){
-              colision=true;
-			}
-            if (((b.getX()+b.getAncho())>=l.getX())&((b.getX()+b.getAncho())<=l.getX()+l.getAncho())&(b.getY()>=l.getY())&(b.getY()<=l.getY()+l.getAlto())){
+		 if(ladrillos[i]!=null){
+			Ladrillo l=ladrillos[i];		
+			 if (
+				(b.getX()>=l.getX())&
+				(b.getX()<=l.getX()+l.getAncho())&
+				(b.getY()>=l.getY())&
+				(b.getY()<=l.getY()+l.getAlto())
+			){
+              			colision=true;
+			}if (
+				((b.getX()+b.getAncho())>=l.getX())&
+				((b.getX()+b.getAncho())<=l.getX()+l.getAncho())&
+				(b.getY()>=l.getY())&
+				(b.getY()<=l.getY()+l.getAlto())
+			){
+			 	 colision=true;
+            		}if (
+				(b.getX()>=l.getX())&
+				(b.getX()<=l.getX()+l.getAncho())&
+				(b.getY()+b.getAlto()>=l.getY())&
+				(b.getY()+b.getAlto()<=l.getY()+l.getAlto())
+			){
 			  colision=true;
-            }	
-            if ((b.getX()>=l.getX())&(b.getX()<=l.getX()+l.getAncho())&(b.getY()+b.getAlto()>=l.getY())&(b.getY()+b.getAlto()<=l.getY()+l.getAlto())){
-			  colision=true;
-            }
-            if ((b.getX()+b.getAncho()>=l.getX())&(b.getX()+b.getAncho()<=l.getX()+l.getAncho())&(b.getY()+b.getAlto()>=l.getY())&(b.getY()+b.getAlto()<=l.getY()+l.getAlto())){
-              colision=true;
-			}
-            if(colision){
+            		}if (
+ 				(b.getX()+b.getAncho()>=l.getX())&
+				(b.getX()+b.getAncho()<=l.getX()+l.getAncho())&
+				(b.getY()+b.getAlto()>=l.getY())&
+				(b.getY()+b.getAlto()<=l.getY()+l.getAlto())
+			){
+              			colision=true;
+			}if(colision){
 				this.remove(l);
 				ladrillos[i]=null;
-            }
-         }
-	     return colision;
-
+           		}
+         	}
+	}
+	return colision;  
   }
-
   public static void main (String [ ] args) {
-      Campo c=new Campo();
+      final Campo c=new Campo();
       c.setBounds(c.xInicial,c.yInicial,c.ancho,c.alto);
       c.dibujarCampo();
-      c.show();
-      
+      c.show();      
       Timer timer = new Timer (c.tiempo, new ActionListener(){ 
 	    public void actionPerformed(ActionEvent e){ 
 		if(!c.colision()){
 			c.b.moverPelota();
+			System.out.println("Posición X: "+ c.b.getX()+ "Posición Y: " + c.b.getY());
 		}
 	     } 
 	 });
 	 timer.start();
-	 timer.setRepeats(true);
+	 timer.setRepeats(true);  
+  }
 }
-  
-  
-}
+
+
 

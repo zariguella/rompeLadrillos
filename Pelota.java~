@@ -15,7 +15,7 @@ public class Pelota extends	Button {
 		y=m*x+b;
 		x=(y-b)/m;
 		this.setBounds(x,y,this.ancho,this.alto);
-		x++;
+		
 	}
 
 	public int getAncho(){
