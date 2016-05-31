@@ -1,22 +1,33 @@
-import java.awt.Frame;
+import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.Timer;
 
-public class Campo extends Frame {
-  private int alto=500;
-  private int ancho=500;
-  private int xInicial=0;
-  private int yInicial=0;
+public class Campo extends JFrame{
+  private int alto=600;
+  private int ancho=600;
+  private int xInicial=10;
+  private int yInicial=10;
   private int numLadrillos=10;
   private Ladrillo ladrillos[]=new Ladrillo[numLadrillos];
-  private int tiempo=10;
-  private Pelota b=new Pelota(250,300);
+  private int tiempo=100;
+  private Pelota b=new Pelota(10,10);
   
   
   public Campo(){  
-	//this.setBackground(Color.GREEN);
   	setLayout(null);
+    this.setFocusable(true);
+    this.addKeyListener(new KeyListener() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+        @Override
+        public void keyPressed(KeyEvent e) {
+        }
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+    });
   }
   
   
@@ -100,7 +111,7 @@ public class Campo extends Frame {
 	    public void actionPerformed(ActionEvent e){ 
 		if(!c.colision()){
 			c.b.moverPelota();
-			System.out.println("Posición X: "+ c.b.getX()+ "Posición Y: " + c.b.getY());
+			//System.out.println("Posición X: "+ c.b.getX()+ "Posición Y: " + c.b.getY());
 		}
 	     } 
 	 });

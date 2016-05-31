@@ -1,6 +1,6 @@
-import java.awt.Button;
+import javax.swing.JButton;
 
-public class Paleta extends	Button {  
+public class Paleta extends	JButton {  
 	private int alto=10;
 	private int ancho=30;
 
