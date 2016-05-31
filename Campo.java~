@@ -15,7 +15,6 @@ public class Campo extends JFrame{
   
   
   public Campo(){  
-	//this.setBackground(Color.GREEN);
   	setLayout(null);
     this.setFocusable(true);
     this.addKeyListener(new KeyListener() {
