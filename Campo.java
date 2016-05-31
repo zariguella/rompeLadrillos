@@ -15,7 +15,7 @@ public class Campo extends JFrame{
   
   
   public Campo(){  
-  	setLayout(null);
+  	this.setLayout(null);
     this.setFocusable(true);
     this.addKeyListener(new KeyListener() {
         @Override
@@ -28,6 +28,7 @@ public class Campo extends JFrame{
         public void keyReleased(KeyEvent e) {
         }
     });
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
   
   

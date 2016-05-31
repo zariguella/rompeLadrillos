@@ -63,7 +63,7 @@ public class Campo extends JFrame{
 
   public boolean colision(){
     boolean colision=false;
-	for (int i=0; i<this.numLadrillos;i++){
+	/*for (int i=0; i<this.numLadrillos;i++){
 		 if(ladrillos[i]!=null){
 			Ladrillo l=ladrillos[i];		
 			 if (
@@ -99,7 +99,7 @@ public class Campo extends JFrame{
 				ladrillos[i]=null;
            		}
          	}
-	}
+	}*/
 	return colision;  
   }
   public static void main (String [ ] args) {
