@@ -10,8 +10,9 @@ public class Campo extends JFrame{
   private int yInicial=10;
   private int numLadrillos=10;
   private Ladrillo ladrillos[]=new Ladrillo[numLadrillos];
-  private int tiempo=100;
+  private int tiempo=50;
   private Pelota b=new Pelota(10,10);
+  private Paleta p=new Paleta(250,475);
   
   
   public Campo(){  
@@ -23,6 +24,19 @@ public class Campo extends JFrame{
         }
         @Override
         public void keyPressed(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            switch( keyCode ) { 
+                case KeyEvent.VK_UP:
+                    break;
+                case KeyEvent.VK_DOWN:
+                    break;
+                case KeyEvent.VK_LEFT:
+                    p.moverseIzquierda(10);
+                    break;
+                case KeyEvent.VK_RIGHT :
+                    p.moverseDerecha(10);
+                    break;
+             }
         }
         @Override
         public void keyReleased(KeyEvent e) {
@@ -47,8 +61,7 @@ public class Campo extends JFrame{
       return this.alto;
   }
   
-  public void dibujarCampo(){	
-	 Paleta p=new Paleta(250,475);
+  public void dibujarCampo(){
 	 p.setBackground(Color.ORANGE);
 	 this.add(p);   	 
    	 b.setBackground(Color.RED);
@@ -64,7 +77,7 @@ public class Campo extends JFrame{
 
   public boolean colision(){
     boolean colision=false;
-	/*for (int i=0; i<this.numLadrillos;i++){
+	for (int i=0; i<this.numLadrillos;i++){
 		 if(ladrillos[i]!=null){
 			Ladrillo l=ladrillos[i];		
 			 if (
@@ -81,7 +94,7 @@ public class Campo extends JFrame{
 				(b.getY()<=l.getY()+l.getAlto())
 			){
 			 	 colision=true;
-            		}if (
+            }if (
 				(b.getX()>=l.getX())&
 				(b.getX()<=l.getX()+l.getAncho())&
 				(b.getY()+b.getAlto()>=l.getY())&
@@ -95,13 +108,24 @@ public class Campo extends JFrame{
 				(b.getY()+b.getAlto()<=l.getY()+l.getAlto())
 			){
               			colision=true;
-			}if(colision){
+			}
+            if(colision){
 				this.remove(l);
 				ladrillos[i]=null;
-           		}
-         	}
-	}*/
+           	}
+            colision=false;
+         }
+	}
 	return colision;  
+  }
+  public void colisionPaleta(){
+	     if (
+		    (b.getX()>=p.getX())&
+		    (b.getX()<=p.getX()+p.getAncho())&
+		    (b.getY()+b.getAlto()>=p.getY())
+	    ){
+          			System.out.println("choque paleta");
+	    }
   }
   public static void main (String [ ] args) {
       final Campo c=new Campo();
@@ -110,6 +134,7 @@ public class Campo extends JFrame{
       c.show();      
       Timer timer = new Timer (c.tiempo, new ActionListener(){ 
 	    public void actionPerformed(ActionEvent e){ 
+        c.colisionPaleta();
 		if(!c.colision()){
 			c.b.moverPelota();
 			//System.out.println("Posición X: "+ c.b.getX()+ "Posición Y: " + c.b.getY());
