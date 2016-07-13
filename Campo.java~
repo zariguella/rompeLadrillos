@@ -2,15 +2,18 @@ import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.Timer;
+import javax.swing.JOptionPane;
+
 
 public class Campo extends JFrame{
   private int alto=600;
   private int ancho=600;
   private int xInicial=10;
   private int yInicial=10;
-  private int numLadrillos=10;
+  private int numLadrillos=50;
   private Ladrillo ladrillos[]=new Ladrillo[numLadrillos];
-  private int tiempo=50;
+  private int tiempo=10;
+  private int fin=0;
   private Pelota b=new Pelota(10,10);
   private Paleta p=new Paleta(250,475);
   
@@ -60,15 +63,25 @@ public class Campo extends JFrame{
   public int getAlto(){
       return this.alto;
   }
+
+  public int getFin(){
+      return this.fin;
+  }
   
   public void dibujarCampo(){
-	 p.setBackground(Color.ORANGE);
-	 this.add(p);   	 
+	b=new Pelota(300,300);
+  	p=new Paleta(250,475);
+	p.setBackground(Color.ORANGE);
+	 this.add(p); 	 
    	 b.setBackground(Color.RED);
   	 this.add(b);
-	 
+		int j=0; 
 	 for(int i=0;i<numLadrillos;i=i+1){
-	    Ladrillo l=new Ladrillo(this.xInicial+50*i,this.yInicial);
+		if((i%10)==0){
+			
+			j++;
+		}
+	    Ladrillo l=new Ladrillo(this.xInicial+50*(i%10),this.yInicial+30*j);
 	    l.setBackground(Color.BLUE);
 	    ladrillos[i]=l;
 	    this.add(l);
@@ -85,8 +98,9 @@ public class Campo extends JFrame{
 				(b.getX()<=l.getX()+l.getAncho())&
 				(b.getY()>=l.getY())&
 				(b.getY()<=l.getY()+l.getAlto())
-			){
+			){  
               			colision=true;
+				b.reflejarPelota(2);
 			}if (
 				((b.getX()+b.getAncho())>=l.getX())&
 				((b.getX()+b.getAncho())<=l.getX()+l.getAncho())&
@@ -94,13 +108,16 @@ public class Campo extends JFrame{
 				(b.getY()<=l.getY()+l.getAlto())
 			){
 			 	 colision=true;
-            }if (
+				 b.reflejarPelota(-1);
+				
+            		}if (
 				(b.getX()>=l.getX())&
 				(b.getX()<=l.getX()+l.getAncho())&
 				(b.getY()+b.getAlto()>=l.getY())&
 				(b.getY()+b.getAlto()<=l.getY()+l.getAlto())
 			){
 			  colision=true;
+			  b.reflejarPelota(2);
             		}if (
  				(b.getX()+b.getAncho()>=l.getX())&
 				(b.getX()+b.getAncho()<=l.getX()+l.getAncho())&
@@ -108,6 +125,7 @@ public class Campo extends JFrame{
 				(b.getY()+b.getAlto()<=l.getY()+l.getAlto())
 			){
               			colision=true;
+				b.reflejarPelota(1);
 			}
             if(colision){
 				this.remove(l);
@@ -119,15 +137,34 @@ public class Campo extends JFrame{
 	return colision;  
   }
   public void colisionPaleta(){
-    boolean colision=false;		
 	     if (
 		    (b.getX()>=p.getX())&
 		    (b.getX()<=p.getX()+p.getAncho())&
 		    (b.getY()+b.getAlto()>=p.getY())
 	    ){
-          			System.out.println("choque paleta");
+          			b.reflejarPelota(+1);
 	    }
   }
+
+  public void colisionCampo(){
+	if (b.getX()>=this.getAncho()-10){	
+		b.reflejarPelota(-1);		
+	}
+	if (b.getY()<=3){	
+		b.reflejarPelota(2);		
+	}	
+	
+	if (b.getX()<=10){	
+		b.reflejarPelota(+1);		
+	}	
+
+	if (b.getY()>p.getY()+p.getAlto()){		 	
+	 JOptionPane.showMessageDialog(null, "Has perdido", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+	 
+	}	
+  }
+
   public static void main (String [ ] args) {
       final Campo c=new Campo();
       c.setBounds(c.xInicial,c.yInicial,c.ancho,c.alto);
@@ -135,10 +172,12 @@ public class Campo extends JFrame{
       c.show();      
       Timer timer = new Timer (c.tiempo, new ActionListener(){ 
 	    public void actionPerformed(ActionEvent e){ 
+        c.colisionPaleta();
+	c.colisionCampo();
+		if (c.getFin()==1){
+		   c.dibujarCampo(); 
+		}
 		if(!c.colision()){
-			c.b.moverPelota();
-			//System.out.println("Posición X: "+ c.b.getX()+ "Posición Y: " + c.b.getY());
-		}else if(!c.colisionPaleta()){
 			c.b.moverPelota();
 			//System.out.println("Posición X: "+ c.b.getX()+ "Posición Y: " + c.b.getY());
 		}

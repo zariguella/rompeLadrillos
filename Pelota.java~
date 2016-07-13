@@ -1,8 +1,9 @@
 import javax.swing.JButton;
 
-public class Pelota extends	Button {  
+public class Pelota extends	JButton {  
   private int alto=10;
   private int ancho=10;
+  private int direccion=1;
   private int x=0;
   private int y=0;
   private int m=1;
@@ -13,8 +14,22 @@ public class Pelota extends	Button {
         this.y=y;
 		this.setBounds(x,y,this.ancho,this.alto);
 	}
+
+	public void reflejarPelota(int direccion){
+		
+
+		if (direccion!=2){		
+		   this.direccion=direccion;
+		}
+		
+		m=-1/m;
+		b=y-m*x;
+	
+		
+	}
+
 	public void moverPelota(){        
-		x++;
+		x=x+direccion;
 		y=m*x+b;
 		this.setBounds(x,y,this.ancho,this.alto);
 	}
